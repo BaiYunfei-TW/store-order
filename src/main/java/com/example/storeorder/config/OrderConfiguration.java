@@ -1,4 +1,4 @@
-package com.example.storeorder;
+package com.example.storeorder.config;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
