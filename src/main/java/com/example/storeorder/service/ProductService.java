@@ -1,5 +1,6 @@
 package com.example.storeorder.service;
 
+import com.example.storeorder.client.ProductClient;
 import com.example.storeorder.entity.OrderItem;
 import com.example.storeorder.entity.OrderProduct;
 import com.example.storeorder.entity.Product;
@@ -14,12 +15,12 @@ import java.util.List;
 public class ProductService {
 
     @Autowired
-    private RestTemplate restTemplate;
+    private ProductClient productClient;
 
     public void checkOutOfAmount(List<OrderItem> orderItems) {
         orderItems.forEach(item -> {
             Integer productId = item.getOrderProduct().getProductId();
-            Product product = restTemplate.getForObject("http://STORE-PRODUCT/api/products/" + productId, Product.class);
+            Product product = productClient.findById(productId);
             if (product == null || product.isOutOfAmount(item.getAmount())) {
                 throw new OutOfAmountException();
             }
